@@ -1,0 +1,31 @@
+#root {
+  height: 100%;
+}
+
+.ant-btn[disabled] {
+  /*
+    清除不可用图标的淡灰色背景
+  */
+  background-color: #FFF !important;
+}
+
+button.ant-btn-icon-only {
+  /*
+    清除图标按钮的边框
+  */
+  border: none;
+}
+
+.ant-list-item-action {
+  /*
+    清除action左边距
+  */
+  margin-left: 15px !important;
+}
+
+.ant-list-item-action>li:last-child {
+  /*
+    清除action最后一个操作的右内边距
+  */
+  padding-right: 0;
+}
