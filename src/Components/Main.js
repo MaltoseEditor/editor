@@ -108,6 +108,7 @@ class Main extends Component {
     render() {
         let { detailVisible, imagesVisible, code, html, saving } = this.state;
         const options = {
+            fontSize: '16',
             selectOnLineNumbers: true,
             wordWrap: true,
             minimap: {
