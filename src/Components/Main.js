@@ -1,10 +1,10 @@
-import React, {Component} from 'react';
-import {Row, Col, Button, Tooltip, message, Switch} from 'antd';
+import React, { Component } from 'react';
+import { Row, Col, Button, Tooltip, message, Switch } from 'antd';
 import MonacoEditor from 'react-monaco-editor';
 import 'monaco-editor/esm/vs/basic-languages/markdown/markdown.contribution';
-import {alterArticle, push, getRender} from '../Api/api';
-import {ArticleForm} from './Form/ArticleDetail';
-import {ImageList} from './Form/ImageList';
+import { alterArticle, push, getRender } from '../Api/api';
+import { ArticleForm } from './Form/ArticleDetail';
+import { ImageList } from './Form/ImageList';
 
 
 class Main extends Component {
@@ -41,10 +41,10 @@ class Main extends Component {
     }
 
     setDetailVisible = (visible) => {
-        this.setState({detailVisible: visible});
+        this.setState({ detailVisible: visible });
     }
     setImageVisible = (visible) => {
-        this.setState({imagesVisible: visible});
+        this.setState({ imagesVisible: visible });
     }
 
     push = () => {
@@ -61,14 +61,14 @@ class Main extends Component {
         }
         this.render_task = setTimeout(code => {
             getRender(code).then(rep => {
-                this.setState({html: rep.data.data.result});
+                this.setState({ html: rep.data.data.result });
             }).catch(err => {
-                console.log("渲染出现了点问题", {err});
+                console.log("渲染出现了点问题", { err });
             })
         }, 500, code);
     }
     onCodeChange = (newCode, e) => {
-        this.setState({code: newCode});
+        this.setState({ code: newCode });
         this.renderMarkdown(newCode);
         if (this.props.editedArticle !== null) {
             if (this.save_task !== null) {
@@ -80,23 +80,33 @@ class Main extends Component {
         }
     }
     save = () => {
-        this.setState({saving: true})
-        alterArticle(this.props.editedArticle.id, {'source': this.state.code, 'body': this.state.html})
+        this.setState({ saving: true })
+        alterArticle(this.props.editedArticle.id, { 'source': this.state.code, 'body': this.state.html })
             .then(() => {
                 message.success("文章内容保存成功")
             }).catch(() => {
-            message.error("文章内容保存失败")
-        }).then(() => {
-            this.setState({saving: false});
-        })
+                message.error("文章内容保存失败")
+            }).then(() => {
+                this.setState({ saving: false });
+            })
         if (this.save_task !== null) {
             clearTimeout(this.save_task);
             this.save_task = null;
         }
     }
+    handleKeyDown = (event) => {
+        let charCode = String.fromCharCode(event.which).toLowerCase();
+        // For MAC we can use metaKey to detect cmd key
+        if ((event.ctrlKey && charCode === 's') || (event.metaKey && charCode === 's')) {
+            event.preventDefault();
+            if (this.props.editedArticle !== null) {
+                this.save()
+            }
+        }
+    }
 
     render() {
-        let {detailVisible, imagesVisible, code, html, saving} = this.state;
+        let { detailVisible, imagesVisible, code, html, saving } = this.state;
         const options = {
             selectOnLineNumbers: true,
             wordWrap: true,
@@ -106,8 +116,8 @@ class Main extends Component {
         };
         const editedArticle = this.props.editedArticle;
         return (
-            <Row gutter={0} style={{height: "100%"}}>
-                <Col span={24} style={{borderBottom: "1px solid #d9d9d9", position: "relative"}}>
+            <Row gutter={0} style={{ height: "100%" }} onKeyDown={this.handleKeyDown}>
+                <Col span={24} style={{ borderBottom: "1px solid #d9d9d9", position: "relative" }}>
 
                     <div style={{
                         position: "absolute",
@@ -121,61 +131,61 @@ class Main extends Component {
                         {(editedArticle != null && '正在编辑 - ' + editedArticle.title) || 'Maltose 编辑器'}
                     </div>
 
-                    <div style={{display: "inline-block"}}>
+                    <div style={{ display: "inline-block" }}>
                         <Tooltip placement="bottomLeft" title={(editedArticle !== null && '编辑文章') || '新建文章'}
-                                 arrowPointAtCenter>
+                            arrowPointAtCenter>
                             <Button size="large" shape="circle"
-                                    icon={(editedArticle !== null && 'form') || 'file-add'}
-                                    onClick={() => {
-                                        this.setDetailVisible(true)
-                                    }}
+                                icon={(editedArticle !== null && 'form') || 'file-add'}
+                                onClick={() => {
+                                    this.setDetailVisible(true)
+                                }}
                             />
                         </Tooltip>
 
                         <Tooltip placement="bottom" title={'关闭编辑'} arrowPointAtCenter>
                             <Button size="large" shape="circle" icon="close-circle"
-                                    onClick={() => {
-                                        this.props.setEditedArticle(null)
-                                    }}
+                                onClick={() => {
+                                    this.props.setEditedArticle(null)
+                                }}
                             />
                         </Tooltip>
 
                         <Tooltip placement="bottom" title={'保存内容'} arrowPointAtCenter>
                             <Button size="large" shape="circle" icon="save"
-                                    onClick={this.save}
-                                    disabled={editedArticle === null}
-                                    loading={saving}
+                                onClick={this.save}
+                                disabled={editedArticle === null}
+                                loading={saving}
                             />
                         </Tooltip>
 
                         <Tooltip placement="bottom" title={'图片管理'} arrowPointAtCenter>
                             <Button size="large" shape="circle" icon="picture"
-                                    disabled={editedArticle === null}
-                                    onClick={() => {
-                                        this.setImageVisible(true)
-                                    }}
+                                disabled={editedArticle === null}
+                                onClick={() => {
+                                    this.setImageVisible(true)
+                                }}
                             />
                         </Tooltip>
 
                     </div>
 
-                    <div style={{display: "inline-block", float: "right"}}>
+                    <div style={{ display: "inline-block", float: "right" }}>
                         <Tooltip placement="bottom" title={'git push'} arrowPointAtCenter>
                             <Button size="large" shape="circle" icon="arrow-up"
-                                    onClick={() => {
-                                        this.push()
-                                    }}
+                                onClick={() => {
+                                    this.push()
+                                }}
                             />
                         </Tooltip>
                         <a href='/accounts/logout/'>
                             <Tooltip placement="bottomRight" title="退出登录" arrowPointAtCenter>
-                                <Button size="large" shape="circle" icon="logout"/>
+                                <Button size="large" shape="circle" icon="logout" />
                             </Tooltip>
                         </a>
                     </div>
 
                 </Col>
-                <Col span={12} style={{height: 'calc(100% - 41px)'}}>
+                <Col span={12} style={{ height: 'calc(100% - 41px)' }}>
                     <MonacoEditor
                         width={'100%'}
                         height={'100%'}
@@ -186,11 +196,11 @@ class Main extends Component {
                         onChange={this.onCodeChange}
                     />
                 </Col>
-                <Col span={12} style={{height: 'calc(100% - 41px)', overflowY: 'auto'}}>
+                <Col span={12} style={{ height: 'calc(100% - 41px)', overflowY: 'auto' }}>
                     <div id="markdown"
-                         className="markdown-body"
-                         style={{padding: '20px'}}
-                         dangerouslySetInnerHTML={{__html: html}}>
+                        className="markdown-body"
+                        style={{ padding: '20px' }}
+                        dangerouslySetInnerHTML={{ __html: html }}>
                     </div>
                 </Col>
 

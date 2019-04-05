@@ -26,7 +26,9 @@ class Sider extends Component {
     render() {
         let searchValue = this.state.searchValue;
         let articles = this.props.articles;
-        articles = this.state.searchValue !== "" && articles.length >= 0 ? articles.filter(item => { return item.title.indexOf(searchValue) > -1; }) : articles;
+        console.log(articles);
+        articles = (this.state.searchValue !== "" && articles.length >= 0) ? articles.filter(item => { return item.title.indexOf(searchValue) > -1; }) : articles;
+        console.log(articles);
         return (
             <div style={{ width: '100%', height: "100%", overflow: "auto" }}>
                 <List

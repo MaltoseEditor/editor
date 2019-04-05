@@ -43,7 +43,7 @@ class App extends Component {
             }
         }
         if (i === articles.length) {
-            articles.push(article);
+            articles.shift(article);
         }
         this.setState({ 'articles': articles });
     }
@@ -111,23 +111,24 @@ class App extends Component {
     }
 
     render() {
+        const { articles, editedArticle, tags, corpuses } = this.state;
         return (
             <Row gutter={0} style={{ height: "100%" }}>
                 <Col span={4} style={{ height: "100%" }}>
                     <Sider
-                        articles={this.state.articles}
+                        articles={articles}
                         setEditedArticle={this.setEditedArticle}
                     />
                 </Col>
                 <Col span={20} style={{ height: "100%" }}>
                     <Main
-                        editedArticle={this.state.editedArticle}
+                        editedArticle={editedArticle}
                         setEditedArticle={this.setEditedArticle}
                         pushArticle={this.pushArticle}
                         pushCorpus={this.pushCorpus}
                         pushTag={this.pushTag}
-                        tags={this.state.tags}
-                        corpuses={this.state.corpuses}
+                        tags={tags}
+                        corpuses={corpuses}
                     />
                 </Col>
             </Row>
