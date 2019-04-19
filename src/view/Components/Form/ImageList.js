@@ -1,7 +1,7 @@
 import React from 'react';
 import ClipboardJS from 'clipboard';
 import { message, Button, Drawer, Icon, Modal, List } from 'antd';
-import { newImage, delImage } from '../../Api/api';
+import { newImage, delImage } from '../../../Api/api';
 
 var clipboard = new ClipboardJS('.copy-image-text');
 

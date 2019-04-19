@@ -1,6 +1,6 @@
 import React from 'react';
 import { message, Button, Drawer, Form, Input, Select, Checkbox, Modal, notification, Tooltip } from 'antd';
-import { newArticle, alterArticle, newTag, newCorpus } from '../../Api/api';
+import { newArticle, alterArticle, newTag, newCorpus } from '../../../Api/api';
 
 
 const CorpusCreateForm = Form.create({ name: 'form_in_modal' })(

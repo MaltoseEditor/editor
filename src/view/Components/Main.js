@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Row, Col, Button, Tooltip, message, Switch } from 'antd';
 import MonacoEditor from 'react-monaco-editor';
 import 'monaco-editor/esm/vs/basic-languages/markdown/markdown.contribution';
-import { alterArticle, push, getRender } from '../Api/api';
+import { alterArticle, push, getRender } from '../../Api/api';
 import { ArticleForm } from './Form/ArticleDetail';
 import { ImageList } from './Form/ImageList';
 
