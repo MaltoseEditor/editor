@@ -46,7 +46,6 @@ class App extends Component {
             articles.unshift(article);
         }
         this.setState({ 'articles': articles });
-        console.log(articles);
     }
     pushTag = (tag) => {
         let tags = this.state.tags,
@@ -60,7 +59,6 @@ class App extends Component {
             tags.push(tag);
         }
         this.setState({ 'tags': tags });
-        console.log(tags);
     }
     pushCorpus = (corpus) => {
         let corpuses = this.state.corpuses,
@@ -74,7 +72,6 @@ class App extends Component {
             corpuses.push(corpus);
         }
         this.setState({ 'corpuses': corpuses });
-        console.log(corpuses);
     }
 
     componentDidMount() {
