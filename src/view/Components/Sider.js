@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { List, Input, Button } from 'antd';
 
-const Search = Input.Search;
 
 class Sider extends Component {
     constructor(props) {
@@ -26,18 +25,19 @@ class Sider extends Component {
     render() {
         let searchValue = this.state.searchValue;
         let articles = this.props.articles;
-        console.log(articles);
-        articles = (this.state.searchValue !== "" && articles.length >= 0) ? articles.filter(item => { return item.title.indexOf(searchValue) > -1; }) : articles;
-        console.log(articles);
+        if (this.state.searchValue && articles.length >= 0) {
+            articles = articles.filter(item => { return item.title.toLowerCase().indexOf(searchValue.toLowerCase()) > -1; })
+        }
         return (
             <div style={{ width: '100%', height: "100%", overflow: "auto" }}>
                 <List
                     style={{ minHeight: "100%" }}
                     size="large"
-                    header={<Search
-                        placeholder="input search text"
-                        onSearch={value => { this.setState({ searchValue: value }); }}
+                    header={<Input
+                        placeholder="对标题进行搜索"
+                        onChange={e => { this.setState({ "searchValue": e.target.value }) }}
                         style={{ width: '100%' }}
+                        allowClear
                     />}
                     footer={<div></div>}
                     bordered

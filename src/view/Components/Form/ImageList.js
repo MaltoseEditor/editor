@@ -36,7 +36,6 @@ class UploadImage extends React.Component {
     }
     check = (event) => {
         let input = event.target;
-        console.log({ input });
         if (input.files.length === 0) {
             return;
         }
@@ -106,7 +105,6 @@ export class ImageList extends React.Component {
     }
 
     uploadImage = (obj) => {
-        console.log({ obj });
         newImage(this.props.initArticle.id, obj.file).then(rep => {
             let filelist = this.state.filelist;
             filelist.push(rep.data.data);

@@ -81,6 +81,14 @@ export const ArticleForm = Form.create()(
                     sm: { span: 15 },
                 },
             };
+            const formCheckboxLayout = {
+                labelCol: {
+                    sm: { span: 4 },
+                },
+                wrapperCol: {
+                    sm: { span: 20 },
+                },
+            }
 
             return (
                 <Drawer
@@ -112,7 +120,7 @@ export const ArticleForm = Form.create()(
                                     { whitespace: true },
                                 ],
                             })(
-                                <Input disabled={initArticle !== null} />
+                                <Input />//disabled={initArticle !== null} />
                             )}
                         </Form.Item>
 
@@ -128,12 +136,12 @@ export const ArticleForm = Form.create()(
                                     { whitespace: true },
                                 ],
                             })(
-                                <Input disabled={initArticle !== null} />
+                                <Input />//disabled={initArticle !== null} />
                             )}
                         </Form.Item>
 
                         <Form.Item
-                            {...formItemLayout}
+                            {...formCheckboxLayout}
                             label="全体可见"
                         >
                             {getFieldDecorator('is_public', {
@@ -142,10 +150,11 @@ export const ArticleForm = Form.create()(
                             })(
                                 <Checkbox disabled={initArticle === null} />
                             )}
+                            <p style={{"display": "inline-block", marginLeft: "1em", marginBottom: 0, fontSize: "0.8em", color: "#bbb"}}>文章不出现在任何地方, 仅能通过链接访问</p>
                         </Form.Item>
 
                         <Form.Item
-                            {...formItemLayout}
+                            {...formCheckboxLayout}
                             label="暂不发布"
                         >
                             {getFieldDecorator('is_draft', {
@@ -154,6 +163,7 @@ export const ArticleForm = Form.create()(
                             })(
                                 <Checkbox disabled={initArticle === null} />
                             )}
+                            <p style={{"display": "inline-block", marginLeft: "1em", marginBottom: 0, fontSize: "0.8em", color: "#bbb"}}>文章为草稿状态, 不能被访问</p>
                         </Form.Item>
 
                         <Form.Item

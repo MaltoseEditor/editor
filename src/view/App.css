@@ -16,6 +16,13 @@ button.ant-btn-icon-only {
   border: none;
 }
 
+.ant-list-item-content {
+  /*
+    强制断词换行
+  */
+  word-break:break-all;
+}
+
 .ant-list-item-action {
   /*
     清除action左边距
