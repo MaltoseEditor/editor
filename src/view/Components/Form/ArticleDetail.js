@@ -150,7 +150,7 @@ export const ArticleForm = Form.create()(
                             })(
                                 <Checkbox disabled={initArticle === null} />
                             )}
-                            <p style={{"display": "inline-block", marginLeft: "1em", marginBottom: 0, fontSize: "0.8em", color: "#bbb"}}>文章不出现在任何地方, 仅能通过链接访问</p>
+                            <p style={{ "display": "inline-block", marginLeft: "1em", marginBottom: 0, fontSize: "0.8em", color: "#bbb" }}>文章不出现在任何地方, 仅能通过链接访问</p>
                         </Form.Item>
 
                         <Form.Item
@@ -163,7 +163,20 @@ export const ArticleForm = Form.create()(
                             })(
                                 <Checkbox disabled={initArticle === null} />
                             )}
-                            <p style={{"display": "inline-block", marginLeft: "1em", marginBottom: 0, fontSize: "0.8em", color: "#bbb"}}>文章为草稿状态, 不能被访问</p>
+                            <p style={{ "display": "inline-block", marginLeft: "1em", marginBottom: 0, fontSize: "0.8em", color: "#bbb" }}>文章为草稿状态, 不能被访问</p>
+                        </Form.Item>
+
+                        <Form.Item
+                            {...formCheckboxLayout}
+                            label="具有时效性"
+                        >
+                            {getFieldDecorator('has_timeliness', {
+                                valuePropName: 'checked',
+                                initialValue: initArticle !== null ? initArticle.has_timeliness : true,
+                            })(
+                                <Checkbox disabled={initArticle === null} />
+                            )}
+                            <p style={{ "display": "inline-block", marginLeft: "1em", marginBottom: 0, fontSize: "0.8em", color: "#bbb" }}>文章会出现时效性警示</p>
                         </Form.Item>
 
                         <Form.Item
