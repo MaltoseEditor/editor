@@ -168,7 +168,7 @@ export const ArticleForm = Form.create()(
 
                         <Form.Item
                             {...formCheckboxLayout}
-                            label="具有时效性"
+                            label="时效警告"
                         >
                             {getFieldDecorator('has_timeliness', {
                                 valuePropName: 'checked',
