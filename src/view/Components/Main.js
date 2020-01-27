@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
-import { Row, Col, Button, Tooltip, message, Switch } from 'antd';
+import { Row, Col, Button, Tooltip, message } from 'antd';
 import MonacoEditor from 'react-monaco-editor';
 import 'monaco-editor/esm/vs/basic-languages/markdown/markdown.contribution';
+import 'monaco-editor/esm/vs/editor/contrib/find/findController.js';
+import PerfectScrollbar from 'perfect-scrollbar';
+
 import { alterArticle, push, getRender } from '../../Api/api';
 import { ArticleForm } from './Form/ArticleDetail';
 import { ImageList } from './Form/ImageList';
@@ -199,7 +202,7 @@ class Main extends Component {
                 </Col>
                 <Col span={12} style={{ height: 'calc(100% - 41px)', overflowY: 'auto' }}>
                     <div id="markdown"
-                        className="markdown-body"
+                        className="markdown-body ps"
                         style={{ padding: '20px' }}
                         dangerouslySetInnerHTML={{ __html: html }}>
                     </div>
@@ -228,6 +231,19 @@ class Main extends Component {
 
             </Row>
         );
+    }
+
+    componentDidMount() {
+        this.ps = new PerfectScrollbar(document.querySelector("#markdown"));
+    }
+
+    componentDidUpdate() {
+        this.ps.update();
+    }
+
+    componentWillUnmount() {
+        this.ps.destroy();
+        this.ps = null;
     }
 }
 

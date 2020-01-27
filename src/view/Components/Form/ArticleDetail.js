@@ -98,8 +98,7 @@ export const ArticleForm = Form.create()(
                     visible={visible}
                     style={{
                         overflow: 'auto',
-                        height: 'calc(100% - 108px)',
-                        paddingBottom: '108px',
+                        height: '100%'
                     }}
                 >
                     <CorpusCreateForm
@@ -120,7 +119,7 @@ export const ArticleForm = Form.create()(
                                     { whitespace: true },
                                 ],
                             })(
-                                <Input />//disabled={initArticle !== null} />
+                                <Input placeholder="文章标题" />
                             )}
                         </Form.Item>
 
@@ -136,7 +135,7 @@ export const ArticleForm = Form.create()(
                                     { whitespace: true },
                                 ],
                             })(
-                                <Input />//disabled={initArticle !== null} />
+                                <Input placeholder="文章链接" />
                             )}
                         </Form.Item>
 
@@ -150,7 +149,11 @@ export const ArticleForm = Form.create()(
                             })(
                                 <Checkbox disabled={initArticle === null} />
                             )}
-                            <p style={{ "display": "inline-block", marginLeft: "1em", marginBottom: 0, fontSize: "0.8em", color: "#bbb" }}>文章不出现在任何地方, 仅能通过链接访问</p>
+                            <p style={{ "display": "inline-block", marginLeft: "1em", marginBottom: 0, fontSize: "0.8em", color: "#bbb" }}>
+                                {
+                                    this.props.form.getFieldsValue().is_public ? '公开发表文章' : '仅能通过链接访问文章'
+                                }
+                            </p>
                         </Form.Item>
 
                         <Form.Item
@@ -163,7 +166,11 @@ export const ArticleForm = Form.create()(
                             })(
                                 <Checkbox disabled={initArticle === null} />
                             )}
-                            <p style={{ "display": "inline-block", marginLeft: "1em", marginBottom: 0, fontSize: "0.8em", color: "#bbb" }}>文章为草稿状态, 不能被访问</p>
+                            <p style={{ "display": "inline-block", marginLeft: "1em", marginBottom: 0, fontSize: "0.8em", color: "#bbb" }}>
+                                {
+                                    this.props.form.getFieldsValue().is_draft ? '文章为草稿状态' : '文章处于可发布状态'
+                                }
+                            </p>
                         </Form.Item>
 
                         <Form.Item
@@ -176,7 +183,11 @@ export const ArticleForm = Form.create()(
                             })(
                                 <Checkbox disabled={initArticle === null} />
                             )}
-                            <p style={{ "display": "inline-block", marginLeft: "1em", marginBottom: 0, fontSize: "0.8em", color: "#bbb" }}>文章会出现时效性警示</p>
+                            <p style={{ "display": "inline-block", marginLeft: "1em", marginBottom: 0, fontSize: "0.8em", color: "#bbb" }}>
+                                {
+                                    this.props.form.getFieldsValue().has_timeliness ? '文章存在时效性' : '文章无时效警告'
+                                }
+                            </p>
                         </Form.Item>
 
                         <Form.Item
@@ -294,7 +305,7 @@ export const ArticleForm = Form.create()(
                     if (self.props.initArticle === null) {
                         newArticle(data).then(rep => {
                             let article = rep.data.data;
-                            self.props.pushArticle(article)
+                            self.props.pushArticle(article);
                             self.props.setEditedArticle(article);
                             self.props.setVisible(false);
                             message.success("新建文章成功")
@@ -312,6 +323,7 @@ export const ArticleForm = Form.create()(
                     }
                     else {
                         alterArticle(self.props.initArticle.id, data).then(rep => {
+                            self.props.pushArticle(self.props.initArticle);
                             self.props.setEditedArticle(self.props.initArticle);
                             message.success("修改文章信息成功")
                         }).catch(err => {

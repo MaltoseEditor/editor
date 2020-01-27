@@ -117,6 +117,7 @@ class App extends Component {
                 <Col span={4} style={{ height: "100%" }}>
                     <Sider
                         articles={articles}
+                        corpuses={corpuses}
                         setEditedArticle={this.setEditedArticle}
                     />
                 </Col>
